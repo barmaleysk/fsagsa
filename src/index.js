@@ -9,7 +9,7 @@ const prodBD = require('../database.json')
 const bot = new TelegramBot(Config.TOKEN, { // создаю подключение к боту
     polling:true
 })
-
+mongoose.Promise = global.Promise
 require('./models/Product.model')// подключаем модель
 const Product = mongoose.model('products')
 
@@ -17,7 +17,7 @@ require('./models/Client.model')// подключаем модель
 const Client = mongoose.model('clients')
 
 const ACTION_TYPE = {
-    ADD_ORDER: 'ao'
+    ADD_ORDER: 'aor'
 }
 
 Helper.logStart()// есл все хорошо на консоль сообщение "Я родился"
@@ -61,25 +61,31 @@ bot.on("message", msg => {
             case 
             kb.home.set: sendProdByQuery(chatId, {type_id:4})  
             break
-           case kb.back:  
-        bot.sendMessage(Helper.getChatId(msg), 'Какой неопределенный', {
-        reply_markup:{
-            keyboard: keyboard.home   
-        }
-          })
-                break                
+           
        }
         // кейс клавиатур 
        
        })
 
 bot.on('callback_query', query => {
-
+let data
+try {
+    data = JSON.parse(query.data)
+}
+catch(e){
+         throw new Error('Data not obj')
+        }
+    const {type} = data
+    if(type === ACTION_TYPE.ADD_ORDER )
+        {
+            
+        }
     
-    console.log('jhgdj')
-    console.log(query.data)
+  bot.answerCallbackQuery(query.id, 'add')
+  
 })
 
+ 
 
 // обрабатываю команду start, отвечаю приветствием
 bot.onText(/\/start/, msg =>{
@@ -96,25 +102,29 @@ bot.onText(/\/p(.+)/, (msg, [source, match])=>{
     const prodID = Helper.getItemUuid(source)
     const chatID = Helper.getChatId(msg)
     
+//Client.findOne({telegramID:msg.from.id})
     Product.findOne({id:prodID}).then(prod => {
-        const captionn = `${prod.name}\nЦена: ${prod.price} руб.\nВыход: ${prod.out[0]} г \\ ${prod.out[1]} шт.\nСостав: ${prod.ingrid}  `
+        const caption = `${prod.name}\nЦена: ${prod.price} руб.\nВыход: ${prod.out[0]} г \\ ${prod.out[1]} шт.\nСостав: ${prod.ingrid}  `
          bot.sendPhoto(chatID, prod.img, {
-             caption: captionn,
-             reply_markup:{
+             caption: caption,
+            reply_markup:{
                  inline_keyboard:[
                      [
                          {
                             text: 'Добавить в корзину',
-                            callback_data: JSON.stringify({
+                           callback_data: 
+                            JSON.stringify( {
                             type: ACTION_TYPE.ADD_ORDER,
-                            prodId: prod.id
+                            prodId: prod.id})
                                  
-                             })
+                             
                          }
                      ]
                  ]
              }
          } )
+         
+       
     }) 
    
 } )
