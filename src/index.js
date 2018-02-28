@@ -62,6 +62,10 @@ bot.on("message", msg => {
             kb.home.set: sendProdByQuery(chatId, {type_id:4})  
             break
            
+            case kb.home.order:
+           // тут нужно отправить выбраные товары пользователю 
+         
+             break
        }
         // кейс клавиатур 
        
@@ -78,10 +82,12 @@ catch(e){
     const {type} = data
     if(type === ACTION_TYPE.ADD_ORDER )
         {
-            
+            console.log(data)
+           //const order = new Client({
+             //  telegramID: data.
         }
     
-  bot.answerCallbackQuery(query.id, 'add')
+  bot.answerCallbackQuery(query.id, 'add', false)
   
 })
 
