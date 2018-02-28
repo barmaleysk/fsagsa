@@ -65,8 +65,7 @@ bot.on("message", msg => {
            
             case kb.home.order:
                 sendOrder(chatID, order)
-           // тут нужно отправить выбраные товары пользователю 
-         
+           // тут нужно отправить выбраные товары пользователю
              break
        }
         // кейс клавиатур 
@@ -84,11 +83,11 @@ catch(e){
     const {type} = data
     if(type === ACTION_TYPE.ADD_ORDER )
         {
-            console.log(data)
+            //console.log(data)
            //const order = new Client({
              //  telegramID: data.
             order.push(data.prodId)
-
+            console.log(order)
         }
     
   bot.answerCallbackQuery(query.id, 'add', false)
@@ -169,6 +168,6 @@ function sendHTML(chatId, html, kbName = null) {
 
 function sendOrder(chatID, mass)
 {
-  mass.forEach()
+  console.log('я в функции')
 
 }
