@@ -5,13 +5,14 @@ const keyboard = require('./keyboard')
 const kb = require('./keyboard_buttons')
 const mongoose = require('mongoose')
 const prodBD = require('../database.json')
-
+let order = []
 const bot = new TelegramBot(Config.TOKEN, { // создаю подключение к боту
     polling:true
 })
 mongoose.Promise = global.Promise
 require('./models/Product.model')// подключаем модель
 const Product = mongoose.model('products')
+
 
 require('./models/Client.model')// подключаем модель
 const Client = mongoose.model('clients')
@@ -36,7 +37,7 @@ mongoose.connect(Config.DB_URL)//подключение к бд
 
 //принимаю сообщение
 bot.on("message", msg => { 
-    console.log("Kyky", msg.text, msg.from.first_name)       
+    console.log("Kyky", msg.text, msg.from.first_name)
     const chatId = Helper.getChatId(msg)   
        // кейс клавиатур 
     switch (msg.text){
@@ -63,6 +64,7 @@ bot.on("message", msg => {
             break
            
             case kb.home.order:
+                sendOrder(chatID, order)
            // тут нужно отправить выбраные товары пользователю 
          
              break
@@ -85,6 +87,8 @@ catch(e){
             console.log(data)
            //const order = new Client({
              //  telegramID: data.
+            order.push(data.prodId)
+
         }
     
   bot.answerCallbackQuery(query.id, 'add', false)
@@ -163,3 +167,8 @@ function sendHTML(chatId, html, kbName = null) {
   bot.sendMessage(chatId, html, options)
 }
 
+function sendOrder(chatID, mass)
+{
+  mass.forEach()
+
+}
