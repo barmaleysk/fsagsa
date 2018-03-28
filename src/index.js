@@ -87,7 +87,7 @@ bot.on('callback_query', query => {
 
             Client.update({telegramID:data.chatId}, {$push: {order: data.prodId}})
         .then(c=>{
-                    if(!c)
+                    if(c)
                     {
                        Client({telegramID: data.chatId,order: data.prodId}).save()
                     }
