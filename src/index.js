@@ -5,7 +5,7 @@ const keyboard = require('./keyboard')
 const kb = require('./keyboard_buttons')
 const mongoose = require('mongoose')
 const prodBD = require('../database.json')
-let order = []
+
 const bot = new TelegramBot(Config.TOKEN, { // создаю подключение к боту
     polling:true
 })
@@ -64,7 +64,6 @@ bot.on("message", msg => {
             break
            
             case kb.home.order:
-                sendOrder(chatID, order)
            // тут нужно отправить выбраные товары пользователю
              break
        }
@@ -73,22 +72,86 @@ bot.on("message", msg => {
        })
 
 bot.on('callback_query', query => {
-let data
-try {
-    data = JSON.parse(query.data)
-}
-catch(e){
-         throw new Error('Data not obj')
-        }
+    let data
+    let order
+    try {
+        data = JSON.parse(query.data)
+    }
+    catch (e) {
+        throw new Error('Data not obj')
+    }
     const {type} = data
-    if(type === ACTION_TYPE.ADD_ORDER )
-        {
-            //console.log(data)
-           //const order = new Client({
-             //  telegramID: data.
-            order.push(data.prodId)
-            console.log(order)
-        }
+    if (type === ACTION_TYPE.ADD_ORDER) {
+
+        //mongoose.connect(Config.DB_URL)
+        Client.find( {telegramID: data.chatId}, function(err, doc){
+
+
+          // if(err) return console.log(err);
+
+            console.log(doc);
+
+
+            if (doc.telegramID == null) {
+
+                let ord = new Client({
+                    telegramID: data.chatId,
+                    order: data.prodId
+                })
+                ord.save().catch(e=> {
+                    console.log(e)
+                })
+                 console.log("я новую запись пилю")
+
+                
+                //Client.create({telegramID: data.chatId, order: data.prodId}, function (err, doc) {
+
+
+                //    if (err) return console.log(err);
+                //
+                //    console.log("Сохранен объект user", doc);
+                //})
+            }
+            else {
+                Client.findOneAndUpdate({telegramID: data.chatId}, {$push: {order: data.prodId}})
+                    .then(c => {
+                        console.log("Я старую изменяю")
+                    })
+                    .catch(e => {
+                        console.log("ошибка")
+                    })
+            }
+        })
+        //console.log(data)
+        //const order = new Client({
+        //  telegramID: data.
+        // записать в бд в таблицу клиенты
+        // if (!Client.findById({telegramID: data.chatId})) {
+        //     let ord = new Client({
+        //         telegramID: data.chatId,
+        //         order: data.prodId
+        //     })
+        //     ord.save()
+        // } else {
+        //     Client.findOneAndUpdate({telegramID: data.chatId}, {$push: {order: data.prodId}})
+        //         .then(c => {
+        //             console.log("jhgdjhfkj")
+        //         })
+        //         .catch(e => {
+        //             console.log("ошибка")
+        //         })
+
+        // Client.findOneAndUpdate({telegramID:data.chatId}) .then(c =>{
+        //console.log(c)
+        //   c.update({ _id: data.chatId }, {$push: {order: data.prodId }})
+        //  console.log(c)
+        // } ) .catch(e => {
+        //   console.log(e)
+        // })
+    }
+
+
+
     
   bot.answerCallbackQuery(query.id, 'add', false)
   
@@ -104,6 +167,12 @@ bot.onText(/\/start/, msg =>{
             keyboard: keyboard.home
         }})    
 })
+
+
+bot.on('polling_error', (error) => {
+    console.log(error.code);  // => 'EFATAL'
+});
+
 
 
 // обрабатываю команду /p
@@ -124,7 +193,8 @@ bot.onText(/\/p(.+)/, (msg, [source, match])=>{
                            callback_data: 
                             JSON.stringify( {
                             type: ACTION_TYPE.ADD_ORDER,
-                            prodId: prod.id})
+                            prodId: prod.id,
+                            chatId: chatID})
                                  
                              
                          }
@@ -145,7 +215,6 @@ function sendProdByQuery(chatID, query)
     Product.find(query).then(prod =>{
       const html = prod.map((f,i)=> {
           return `<b>${i+1}</b> ${f.name} - /p${f.id}`
-      
       }).join('\n')
       
       sendHTML(chatID, html, 'home')
@@ -166,8 +235,4 @@ function sendHTML(chatId, html, kbName = null) {
   bot.sendMessage(chatId, html, options)
 }
 
-function sendOrder(chatID, mass)
-{
-  console.log('я в функции')
 
-}
