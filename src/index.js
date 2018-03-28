@@ -84,70 +84,24 @@ bot.on('callback_query', query => {
     if (type === ACTION_TYPE.ADD_ORDER) {
 
         //mongoose.connect(Config.DB_URL)
-        Client.find( {telegramID: data.chatId}, function(err, doc){
+     Client.find({telegramID:data.chatId}) .then(c => {
+         if(c.telegramID == null)
+         {
+             console.log(c)
+             console.log('no')
+             
+         }
+         else
+         {
+             console.log(c)
+             console.log('yes')
+         }
+     })
+        .catch (e => {
+         console.log(e)
+     })
 
 
-          // if(err) return console.log(err);
-
-            console.log(doc);
-
-
-            if (doc.telegramID == null) {
-
-                let ord = new Client({
-                    telegramID: data.chatId,
-                    order: data.prodId
-                })
-                ord.save().catch(e=> {
-                    console.log(e)
-                })
-                 console.log("я новую запись пилю")
-
-                
-                //Client.create({telegramID: data.chatId, order: data.prodId}, function (err, doc) {
-
-
-                //    if (err) return console.log(err);
-                //
-                //    console.log("Сохранен объект user", doc);
-                //})
-            }
-            else {
-                Client.findOneAndUpdate({telegramID: data.chatId}, {$push: {order: data.prodId}})
-                    .then(c => {
-                        console.log("Я старую изменяю")
-                    })
-                    .catch(e => {
-                        console.log("ошибка")
-                    })
-            }
-        })
-        //console.log(data)
-        //const order = new Client({
-        //  telegramID: data.
-        // записать в бд в таблицу клиенты
-        // if (!Client.findById({telegramID: data.chatId})) {
-        //     let ord = new Client({
-        //         telegramID: data.chatId,
-        //         order: data.prodId
-        //     })
-        //     ord.save()
-        // } else {
-        //     Client.findOneAndUpdate({telegramID: data.chatId}, {$push: {order: data.prodId}})
-        //         .then(c => {
-        //             console.log("jhgdjhfkj")
-        //         })
-        //         .catch(e => {
-        //             console.log("ошибка")
-        //         })
-
-        // Client.findOneAndUpdate({telegramID:data.chatId}) .then(c =>{
-        //console.log(c)
-        //   c.update({ _id: data.chatId }, {$push: {order: data.prodId }})
-        //  console.log(c)
-        // } ) .catch(e => {
-        //   console.log(e)
-        // })
     }
 
 
