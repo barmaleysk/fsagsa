@@ -83,23 +83,52 @@ bot.on('callback_query', query => {
     const {type} = data
     if (type === ACTION_TYPE.ADD_ORDER) {
 
-        //mongoose.connect(Config.DB_URL)
-     Client.find({telegramID:data.chatId}) .then(c => {
-         if(c.telegramID == null)
-         {
-             console.log(c)
-             console.log('no')
-             
-         }
-         else
-         {
-             console.log(c)
-             console.log('yes')
-         }
-     })
-        .catch (e => {
-         console.log(e)
-     })
+
+
+            Client.update({telegramID:data.chatId}, {$push: {order: data.prodId}})
+        .then(c=>{
+                    if(!c)
+                    {
+                       Client({telegramID: data.chatId,order: data.prodId}).save()
+                    }
+
+                })
+
+        //           Client({telegramID: data.chatId,order: data.prodId}).save()
+        //
+        //
+        //
+        //Client.update({telegramID:data.chatId}, {"$push": {"order": data.prodId}})
+
+
+     //Client.find({telegramID:data.chatId}) .then(c => {
+     //    if(c.telegramID == data.chatId)
+     //    {
+     //        console.log(c)
+     //        console.log('no')
+     //
+     //        c.update({"$push": { "order": data.prodId } })
+     //        console.log('Push')
+     //
+     //    }
+     //    else
+     //    {
+     //        console.log(c)
+     //        console.log('yes')
+     //
+     //        //Client({
+     //        //    telegramID: data.chatId,
+     //        //    order: data.prodId
+     //        //}).save()
+     //
+     //        console.log('ADD')
+     //
+     //
+     //    }
+     //})
+     //   .catch (e => {
+     //    console.log(e)
+     //})
 
 
     }

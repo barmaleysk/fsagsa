@@ -3,8 +3,8 @@ const Schema = mongoose.Schema
 
 const ClientSchema = new Schema({
     telegramID:{
-    type:String, 
-    required: true
+    type:String,
+        unique:true
 },
   phone:{
       type: String
