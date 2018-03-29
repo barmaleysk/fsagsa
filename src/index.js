@@ -42,38 +42,39 @@ bot.on("message", msg => {
        // кейс клавиатур 
     switch (msg.text){
             
-           case kb.home.aroll: 
+           case kb.home.aroll: //авторские роллы
             sendProdByQuery(chatId, {type_id:3})
             break
                
                
-           case kb.home.kroll: 
+           case kb.home.kroll: //классические роллы
             sendProdByQuery(chatId, {type_id:1})  
             break
-           case kb.home.all: 
+           case kb.home.all: // все
             sendProdByQuery(chatId, {})  
            break
         //bot.sendMessage(Helper.getChatId(msg), 'Ну выбирай)', {})
              
                            
-           case kb.home.maki:
+           case kb.home.maki:// маки
             sendProdByQuery(chatId, {type_id:2})        
          break
             case 
-            kb.home.set: sendProdByQuery(chatId, {type_id:4})  
+            kb.home.set: sendProdByQuery(chatId, {type_id:4})  // сеты
             break
            
-            case kb.home.order:
+            case kb.home.order: // корзина
            // тут нужно отправить выбраные товары пользователю
+                sendOrderByQuery(chatId, {telegramID: chatId})
              break
        }
         // кейс клавиатур 
        
        })
 
+// обрабатываю инлайн клавиатуру
 bot.on('callback_query', query => {
     let data
-    let order
     try {
         data = JSON.parse(query.data)
     }
@@ -81,63 +82,16 @@ bot.on('callback_query', query => {
         throw new Error('Data not obj')
     }
     const {type} = data
-    if (type === ACTION_TYPE.ADD_ORDER) {
+    if (type === ACTION_TYPE.ADD_ORDER) {// кннопка "добавить в корзину"
 
-
-
-            Client.update({telegramID:data.chatId}, {$push: {order: data.prodId}})
-        .then(c=>{
-                    if(c)
+        Client.update({telegramID:data.chatId}, {$push: {order: data.prodId}}).then(c =>{
+            if(c)
                     {
                        Client({telegramID: data.chatId,order: data.prodId}).save()
                     }
-
-                })
-
-        //           Client({telegramID: data.chatId,order: data.prodId}).save()
-        //
-        //
-        //
-        //Client.update({telegramID:data.chatId}, {"$push": {"order": data.prodId}})
-
-
-     //Client.find({telegramID:data.chatId}) .then(c => {
-     //    if(c.telegramID == data.chatId)
-     //    {
-     //        console.log(c)
-     //        console.log('no')
-     //
-     //        c.update({"$push": { "order": data.prodId } })
-     //        console.log('Push')
-     //
-     //    }
-     //    else
-     //    {
-     //        console.log(c)
-     //        console.log('yes')
-     //
-     //        //Client({
-     //        //    telegramID: data.chatId,
-     //        //    order: data.prodId
-     //        //}).save()
-     //
-     //        console.log('ADD')
-     //
-     //
-     //    }
-     //})
-     //   .catch (e => {
-     //    console.log(e)
-     //})
-
-
+        })
     }
-
-
-
-    
   bot.answerCallbackQuery(query.id, 'add', false)
-  
 })
 
  
@@ -190,6 +144,22 @@ bot.onText(/\/p(.+)/, (msg, [source, match])=>{
     }) 
    
 } )
+
+function sendOrderByQuery(chatID, query)
+{
+    Client.find(query) .then(c =>{
+       console.log(c)
+        c.forEach(cc=>{
+            console.log(cc.order[1])
+        })
+    })
+
+
+}
+
+
+
+
 
 
 
