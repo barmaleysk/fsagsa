@@ -150,16 +150,17 @@ function sendOrderByQuery(chatID, query)
     Client.find(query) .then(c =>{
        console.log(c)
         c.forEach(cc=>{
-            console.log(cc.order[1])
+            cc.order.forEach(ccc=>{
+                console.log(ccc)
+                sendProdByQuery(chatID,{id:ccc})
+            })
         })
+
     })
 
 
+
 }
-
-
-
-
 
 
 
@@ -167,7 +168,7 @@ function sendProdByQuery(chatID, query)
 {
     Product.find(query).then(prod =>{
       const html = prod.map((f,i)=> {
-          return `<b>${i+1}</b> ${f.name} - /p${f.id}`
+          return ` ${f.name} - /p${f.id}`
       }).join('\n')
       
       sendHTML(chatID, html, 'home')
