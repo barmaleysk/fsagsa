@@ -18,7 +18,8 @@ require('./models/Client.model')// подключаем модель
 const Client = mongoose.model('clients')
 
 const ACTION_TYPE = {
-    ADD_ORDER: 'aor'
+    ADD_ORDER: 'aor',
+    DEL_ORDER:'dor'
 }
 
 Helper.logStart()// есл все хорошо на консоль сообщение "Я родился"
@@ -90,8 +91,9 @@ bot.on('callback_query', query => {
                        Client({telegramID: data.chatId,order: data.prodId}).save()
                     }
         })
+        bot.answerCallbackQuery(query.id, 'add', false)
     }
-  bot.answerCallbackQuery(query.id, 'add', false)
+
 })
 
  
@@ -127,7 +129,7 @@ bot.onText(/\/p(.+)/, (msg, [source, match])=>{
                      [
                          {
                             text: 'Добавить в корзину',
-                           callback_data: 
+                            callback_data:
                             JSON.stringify( {
                             type: ACTION_TYPE.ADD_ORDER,
                             prodId: prod.id,
@@ -146,15 +148,6 @@ bot.onText(/\/p(.+)/, (msg, [source, match])=>{
 } )
 
 
-const inlinec = {
-    reply_markup: JSON.stringify({
-        inline_keyboard: [
-            [{ text: 'Кнопка 1', callback_data: '1' }],
-            [{ text: 'Кнопка 2', callback_data: 'data 2' }],
-            [{ text: 'Кнопка 3', callback_data: 'text 3' }]
-        ]
-    })
-}
 
 
 
@@ -171,7 +164,25 @@ function sendOrderByQuery(chatID, query)
                  Product.findOne({id:ccc}).then(p=>
                      {
                          console.log(p)
-                         bot.sendMessage(chatID, JSON.stringify(p.name), { parse_mode: 'HTML'} )
+                      //   bot.sendMessage(chatID, JSON.stringify(p.name), { parse_mode: 'HTML'} )
+
+                         const cal = JSON.stringify({
+                             type: ACTION_TYPE.DEL_ORDER,
+                             prodId: p.id,
+                             chatId: chatID
+                     })
+
+                         const inlinec = {
+                             reply_markup: JSON.stringify({
+                                 inline_keyboard: [
+                                     [{ text: 'Удалить', callback_data:cal} ]
+                                 ]
+                             }),
+                             parse_mode: 'HTML'
+                         }
+
+
+                         bot.sendMessage(chatID, JSON.stringify(p.name), inlinec )
                      }
                  )
             })
