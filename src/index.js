@@ -145,14 +145,35 @@ bot.onText(/\/p(.+)/, (msg, [source, match])=>{
    
 } )
 
+
+const inlinec = {
+    reply_markup: JSON.stringify({
+        inline_keyboard: [
+            [{ text: 'Кнопка 1', callback_data: '1' }],
+            [{ text: 'Кнопка 2', callback_data: 'data 2' }],
+            [{ text: 'Кнопка 3', callback_data: 'text 3' }]
+        ]
+    })
+}
+
+
+
 function sendOrderByQuery(chatID, query)
 {
+    const options = {
+        parse_mode: 'HTML'
+    }
     Client.find(query) .then(c =>{
-       console.log(c)
+
         c.forEach(cc=>{
             cc.order.forEach(ccc=>{
-                console.log(ccc)
-                sendProdByQuery(chatID,{id:ccc})
+                //sendProdByQuery(chatID,{id:ccc})
+                 Product.findOne({id:ccc}).then(p=>
+                     {
+                         console.log(p)
+                         bot.sendMessage(chatID, JSON.stringify(p.name), { parse_mode: 'HTML'} )
+                     }
+                 )
             })
         })
 
