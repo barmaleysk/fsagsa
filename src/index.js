@@ -94,6 +94,23 @@ bot.on('callback_query', query => {
         bot.answerCallbackQuery(query.id, 'add', false)
     }
 
+  if(type === ACTION_TYPE.DEL_ORDER){// кнопка удалить из корзины
+
+      console.log(data.prodId)
+
+      Client.findOne({telegramID:data.chatId}) .then(c =>{
+          c.order.forEach(cc=>{
+              if(cc == data.prodId )
+              {
+                  console.log(cc)
+                  
+              }
+          })
+      })
+
+      bot.answerCallbackQuery(query.id, 'del', false)
+  }
+
 })
 
  
