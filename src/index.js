@@ -68,12 +68,7 @@ bot.on("message", msg => {
            // тут нужно отправить выбраные товары пользователю
                 sendOrderByQuery(chatId, {telegramID: chatId})
              break
-        case  kb.home.mn:
-            bot.sendMessage(Helper.getChatId(msg), "нямням", {
-                reply_markup:{
-                    keyboard: keyboard.menu
-                }})
-            break
+
 
         case kb.home.geo:
             bot.sendMessage(Helper.getChatId(msg),"jfdfkjn" , {
@@ -86,6 +81,12 @@ bot.on("message", msg => {
                     reply_markup:{
                         keyboard: keyboard.home
                     }})
+            break
+        case  kb.home.mn:
+            bot.sendMessage(Helper.getChatId(msg), "нямням", {
+                reply_markup:{
+                    keyboard: keyboard.menu
+                }})
             break
 
        }
