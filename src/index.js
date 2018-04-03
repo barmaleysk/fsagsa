@@ -98,17 +98,49 @@ bot.on('callback_query', query => {
 
       console.log(data.prodId)
 
-      Client.findOne({telegramID:data.chatId}) .then(c =>{
-          c.order.forEach(cc=>{
-              if(cc == data.prodId )
-              {
-                  console.log(cc)
-                  
-              }
-          })
-      })
 
-      bot.answerCallbackQuery(query.id, 'del', false)
+
+      //Client.findOne({telegramID:data.chatId, order: data.prodId }) .then(c =>{
+      Client.findOneAndUpdate({telegramID:data.chatId},{$pull:{order:data.prodId}}) .then(c =>{
+
+          console.log(c)
+
+       //   Client.update({telegramID:data.chatId}, { '$pull': {  :  data.prodId   } })
+      })
+.catch(e => {
+              console.log(e)
+          })
+
+      //Client.findOne({telegramID:data.chatId, order: data.prodId }) .then(c =>{
+      //
+      //    let i = 0
+      //    console.log(c)
+      //
+      //    c.order.map((p,i)=>{
+      //
+      //        if(p == data.prodId )
+      //        {
+      //            //Client.update({telegramID:data.chatId}, {$pull:{order:p}})
+      //
+      //        }
+      //    })
+          bot.answerCallbackQuery(query.id, 'del', false)
+          //while(c.order[i] == data.prodId )
+          //{
+          //    i++
+          //    console.log(c)
+          //    // удаление из бд
+         // Client.update( {telegramID:c}, { $pull: {order: data.prodId } } )
+          //
+          //    //Client.findOne()
+          //
+          //    break
+          //}
+
+
+      //})
+
+      //bot.answerCallbackQuery(query.id, 'del', false)
   }
 
 })
@@ -180,7 +212,7 @@ function sendOrderByQuery(chatID, query)
                 //sendProdByQuery(chatID,{id:ccc})
                  Product.findOne({id:ccc}).then(p=>
                      {
-                         console.log(p)
+                         //console.log(p)
                       //   bot.sendMessage(chatID, JSON.stringify(p.name), { parse_mode: 'HTML'} )
 
                          const cal = JSON.stringify({
