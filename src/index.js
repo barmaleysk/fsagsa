@@ -6,6 +6,8 @@ const kb = require('./keyboard_buttons')
 const mongoose = require('mongoose')
 const prodBD = require('../database.json')
 
+
+
 const bot = new TelegramBot(Config.TOKEN, { // создаю подключение к боту
     polling:true
 })
@@ -67,6 +69,10 @@ bot.on("message", msg => {
             case kb.menu.order: // корзина
            // тут нужно отправить выбраные товары пользователю
                 sendOrderByQuery(chatId, {telegramID: chatId})
+                bot.sendMessage(Helper.getChatId(msg), "нямням", {
+                    reply_markup:{
+                        keyboard: keyboard.order
+                    }})
              break
 
 
@@ -87,6 +93,13 @@ bot.on("message", msg => {
                 reply_markup:{
                     keyboard: keyboard.menu
                 }})
+            break
+
+        case kb.menu.ordrgo:
+            /// тут нужно запросить номер у пользователя для связи
+            //OrderOf(chatId, summ)
+
+
             break
 
        }
@@ -193,7 +206,7 @@ function sendOrderByQuery(chatID, query)
         parse_mode: 'HTML'
     }
     Client.find(query) .then(c =>{
-        let summ = 0;
+
         c.forEach(cc=>{
             cc.order.forEach(ccc=>{
                 //sendProdByQuery(chatID,{id:ccc})
@@ -201,7 +214,8 @@ function sendOrderByQuery(chatID, query)
                      {
                          //console.log(p)
                       //   bot.sendMessage(chatID, JSON.stringify(p.name), { parse_mode: 'HTML'} )
-                         summ = summ +  p.out[0];
+                         summ = Number(summ)  +  Number(p.out[0])
+                         console.log(summ)
                          const cal = JSON.stringify({
                              type: ACTION_TYPE.DEL_ORDER,
                              prodId: p.id,
@@ -219,8 +233,8 @@ function sendOrderByQuery(chatID, query)
 
 
                          bot.sendMessage(chatID, JSON.stringify(p.name), inlinec )
-                     }
-                 )
+                     })
+
             })
         })
 
@@ -229,6 +243,8 @@ function sendOrderByQuery(chatID, query)
 
 
 }
+
+
 
 
 

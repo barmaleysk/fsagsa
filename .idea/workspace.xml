@@ -25,9 +25,17 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7671233">
-              <caret line="88" column="19" selection-start-line="88" selection-start-column="19" selection-end-line="88" selection-end-column="19" />
-              <folding />
+            <state vertical-scroll-proportion="0.4">
+              <caret line="150" column="0" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
+              <folding>
+                <element signature="e#3086#4080#0" expanded="false" />
+                <element signature="e#4164#4362#0" expanded="false" />
+                <element signature="e#4401#4449#0" expanded="false" />
+                <element signature="e#4527#5434#0" expanded="false" />
+                <element signature="n#!!block;n#sendOrderByQuery#0" expanded="false" />
+                <element signature="n#!!block;n#sendProdByQuery#0" expanded="false" />
+                <element signature="n#!!block;n#sendHTML#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -36,7 +44,7 @@
         <entry file="file://$PROJECT_DIR$/src/keyboard_buttons.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
+              <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -46,7 +54,7 @@
         <entry file="file://$PROJECT_DIR$/src/keyboard.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+              <caret line="9" column="9" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -85,9 +93,9 @@
         <option value="$PROJECT_DIR$/test/testing.test.js" />
         <option value="$PROJECT_DIR$/src/models/Client.model.js" />
         <option value="$PROJECT_DIR$/src/config.js" />
-        <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/keyboard_buttons.js" />
         <option value="$PROJECT_DIR$/src/keyboard.js" />
+        <option value="$PROJECT_DIR$/src/index.js" />
       </list>
     </option>
   </component>
@@ -311,7 +319,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297546" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24960998" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2852761" sideWeight="0.4969325" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17484662" sideWeight="0.4969325" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.398773" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -341,7 +349,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -350,7 +358,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#3086#4080#0" expanded="false" />
+            <element signature="e#4164#4362#0" expanded="false" />
+            <element signature="e#4401#4449#0" expanded="false" />
+            <element signature="e#4527#5434#0" expanded="false" />
+            <element signature="n#!!block;n#sendOrderByQuery#0" expanded="false" />
+            <element signature="n#!!block;n#sendProdByQuery#0" expanded="false" />
+            <element signature="n#!!block;n#sendHTML#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -382,7 +398,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#3086#4080#0" expanded="false" />
+            <element signature="e#4164#4362#0" expanded="false" />
+            <element signature="e#4401#4449#0" expanded="false" />
+            <element signature="e#4527#5434#0" expanded="false" />
+            <element signature="n#!!block;n#sendOrderByQuery#0" expanded="false" />
+            <element signature="n#!!block;n#sendProdByQuery#0" expanded="false" />
+            <element signature="n#!!block;n#sendHTML#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -414,7 +438,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#3086#4080#0" expanded="false" />
+            <element signature="e#4164#4362#0" expanded="false" />
+            <element signature="e#4401#4449#0" expanded="false" />
+            <element signature="e#4527#5434#0" expanded="false" />
+            <element signature="n#!!block;n#sendOrderByQuery#0" expanded="false" />
+            <element signature="n#!!block;n#sendProdByQuery#0" expanded="false" />
+            <element signature="n#!!block;n#sendHTML#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -446,7 +478,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#3086#4080#0" expanded="false" />
+            <element signature="e#4164#4362#0" expanded="false" />
+            <element signature="e#4401#4449#0" expanded="false" />
+            <element signature="e#4527#5434#0" expanded="false" />
+            <element signature="n#!!block;n#sendOrderByQuery#0" expanded="false" />
+            <element signature="n#!!block;n#sendProdByQuery#0" expanded="false" />
+            <element signature="n#!!block;n#sendHTML#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -478,7 +518,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#3086#4080#0" expanded="false" />
+            <element signature="e#4164#4362#0" expanded="false" />
+            <element signature="e#4401#4449#0" expanded="false" />
+            <element signature="e#4527#5434#0" expanded="false" />
+            <element signature="n#!!block;n#sendOrderByQuery#0" expanded="false" />
+            <element signature="n#!!block;n#sendProdByQuery#0" expanded="false" />
+            <element signature="n#!!block;n#sendHTML#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -510,7 +558,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#3086#4080#0" expanded="false" />
+            <element signature="e#4164#4362#0" expanded="false" />
+            <element signature="e#4401#4449#0" expanded="false" />
+            <element signature="e#4527#5434#0" expanded="false" />
+            <element signature="n#!!block;n#sendOrderByQuery#0" expanded="false" />
+            <element signature="n#!!block;n#sendProdByQuery#0" expanded="false" />
+            <element signature="n#!!block;n#sendHTML#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -542,7 +598,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#3086#4080#0" expanded="false" />
+            <element signature="e#4164#4362#0" expanded="false" />
+            <element signature="e#4401#4449#0" expanded="false" />
+            <element signature="e#4527#5434#0" expanded="false" />
+            <element signature="n#!!block;n#sendOrderByQuery#0" expanded="false" />
+            <element signature="n#!!block;n#sendProdByQuery#0" expanded="false" />
+            <element signature="n#!!block;n#sendHTML#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -581,7 +645,7 @@
     <entry file="file://$PROJECT_DIR$/src/keyboard_buttons.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
+          <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -589,16 +653,24 @@
     <entry file="file://$PROJECT_DIR$/src/keyboard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+          <caret line="9" column="9" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7671233">
-          <caret line="88" column="19" selection-start-line="88" selection-start-column="19" selection-end-line="88" selection-end-column="19" />
-          <folding />
+        <state vertical-scroll-proportion="0.4">
+          <caret line="150" column="0" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
+          <folding>
+            <element signature="e#3086#4080#0" expanded="false" />
+            <element signature="e#4164#4362#0" expanded="false" />
+            <element signature="e#4401#4449#0" expanded="false" />
+            <element signature="e#4527#5434#0" expanded="false" />
+            <element signature="n#!!block;n#sendOrderByQuery#0" expanded="false" />
+            <element signature="n#!!block;n#sendProdByQuery#0" expanded="false" />
+            <element signature="n#!!block;n#sendHTML#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -6,7 +6,8 @@ module.exports =
         aroll:'Авторские',
         maki: 'Маки',
         set: 'Сеты',
-        order: 'Корзина'
+        order: 'Корзина',
+        ordrgo: 'Оформить заказ'
         
     },
 
@@ -14,7 +15,11 @@ module.exports =
         geo:'Где мы находимся?',
         mn: 'Меню'
     },
-    back:'Назад'
+    back:'Назад',
+
+    order:{
+        go:"Оформить"
+    }
 
   
 }
