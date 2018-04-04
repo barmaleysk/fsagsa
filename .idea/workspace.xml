@@ -25,16 +25,14 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4">
-              <caret line="150" column="0" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.47145876">
+              <caret line="270" column="6" selection-start-line="270" selection-start-column="6" selection-end-line="270" selection-end-column="6" />
               <folding>
-                <element signature="e#3086#4080#0" expanded="false" />
-                <element signature="e#4164#4362#0" expanded="false" />
-                <element signature="e#4401#4449#0" expanded="false" />
-                <element signature="e#4527#5434#0" expanded="false" />
+                <element signature="e#3213#4207#0" expanded="false" />
+                <element signature="e#4291#4489#0" expanded="false" />
+                <element signature="e#4528#4576#0" expanded="false" />
+                <element signature="e#4654#5561#0" expanded="false" />
                 <element signature="n#!!block;n#sendOrderByQuery#0" expanded="false" />
-                <element signature="n#!!block;n#sendProdByQuery#0" expanded="false" />
-                <element signature="n#!!block;n#sendHTML#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -55,7 +53,10 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="9" column="9" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
-              <folding />
+              <folding>
+                <marker date="1522789543207" expanded="true" signature="59:429" placeholder="{...}" />
+                <marker date="1522789543207" expanded="true" signature="75:278" placeholder="[...]" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -309,7 +310,7 @@
     <option name="totallyTimeSpent" value="424000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1320" height="784" extended-state="6" />
+    <frame x="-8" y="-8" width="1320" height="784" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17628706" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -359,13 +360,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#3086#4080#0" expanded="false" />
-            <element signature="e#4164#4362#0" expanded="false" />
-            <element signature="e#4401#4449#0" expanded="false" />
-            <element signature="e#4527#5434#0" expanded="false" />
+            <element signature="e#3213#4207#0" expanded="false" />
+            <element signature="e#4291#4489#0" expanded="false" />
+            <element signature="e#4528#4576#0" expanded="false" />
+            <element signature="e#4654#5561#0" expanded="false" />
             <element signature="n#!!block;n#sendOrderByQuery#0" expanded="false" />
-            <element signature="n#!!block;n#sendProdByQuery#0" expanded="false" />
-            <element signature="n#!!block;n#sendHTML#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -399,13 +398,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#3086#4080#0" expanded="false" />
-            <element signature="e#4164#4362#0" expanded="false" />
-            <element signature="e#4401#4449#0" expanded="false" />
-            <element signature="e#4527#5434#0" expanded="false" />
+            <element signature="e#3213#4207#0" expanded="false" />
+            <element signature="e#4291#4489#0" expanded="false" />
+            <element signature="e#4528#4576#0" expanded="false" />
+            <element signature="e#4654#5561#0" expanded="false" />
             <element signature="n#!!block;n#sendOrderByQuery#0" expanded="false" />
-            <element signature="n#!!block;n#sendProdByQuery#0" expanded="false" />
-            <element signature="n#!!block;n#sendHTML#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -439,13 +436,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#3086#4080#0" expanded="false" />
-            <element signature="e#4164#4362#0" expanded="false" />
-            <element signature="e#4401#4449#0" expanded="false" />
-            <element signature="e#4527#5434#0" expanded="false" />
+            <element signature="e#3213#4207#0" expanded="false" />
+            <element signature="e#4291#4489#0" expanded="false" />
+            <element signature="e#4528#4576#0" expanded="false" />
+            <element signature="e#4654#5561#0" expanded="false" />
             <element signature="n#!!block;n#sendOrderByQuery#0" expanded="false" />
-            <element signature="n#!!block;n#sendProdByQuery#0" expanded="false" />
-            <element signature="n#!!block;n#sendHTML#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -479,13 +474,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#3086#4080#0" expanded="false" />
-            <element signature="e#4164#4362#0" expanded="false" />
-            <element signature="e#4401#4449#0" expanded="false" />
-            <element signature="e#4527#5434#0" expanded="false" />
+            <element signature="e#3213#4207#0" expanded="false" />
+            <element signature="e#4291#4489#0" expanded="false" />
+            <element signature="e#4528#4576#0" expanded="false" />
+            <element signature="e#4654#5561#0" expanded="false" />
             <element signature="n#!!block;n#sendOrderByQuery#0" expanded="false" />
-            <element signature="n#!!block;n#sendProdByQuery#0" expanded="false" />
-            <element signature="n#!!block;n#sendHTML#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -519,13 +512,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#3086#4080#0" expanded="false" />
-            <element signature="e#4164#4362#0" expanded="false" />
-            <element signature="e#4401#4449#0" expanded="false" />
-            <element signature="e#4527#5434#0" expanded="false" />
+            <element signature="e#3213#4207#0" expanded="false" />
+            <element signature="e#4291#4489#0" expanded="false" />
+            <element signature="e#4528#4576#0" expanded="false" />
+            <element signature="e#4654#5561#0" expanded="false" />
             <element signature="n#!!block;n#sendOrderByQuery#0" expanded="false" />
-            <element signature="n#!!block;n#sendProdByQuery#0" expanded="false" />
-            <element signature="n#!!block;n#sendHTML#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -559,13 +550,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#3086#4080#0" expanded="false" />
-            <element signature="e#4164#4362#0" expanded="false" />
-            <element signature="e#4401#4449#0" expanded="false" />
-            <element signature="e#4527#5434#0" expanded="false" />
+            <element signature="e#3213#4207#0" expanded="false" />
+            <element signature="e#4291#4489#0" expanded="false" />
+            <element signature="e#4528#4576#0" expanded="false" />
+            <element signature="e#4654#5561#0" expanded="false" />
             <element signature="n#!!block;n#sendOrderByQuery#0" expanded="false" />
-            <element signature="n#!!block;n#sendProdByQuery#0" expanded="false" />
-            <element signature="n#!!block;n#sendHTML#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -599,13 +588,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#3086#4080#0" expanded="false" />
-            <element signature="e#4164#4362#0" expanded="false" />
-            <element signature="e#4401#4449#0" expanded="false" />
-            <element signature="e#4527#5434#0" expanded="false" />
+            <element signature="e#3213#4207#0" expanded="false" />
+            <element signature="e#4291#4489#0" expanded="false" />
+            <element signature="e#4528#4576#0" expanded="false" />
+            <element signature="e#4654#5561#0" expanded="false" />
             <element signature="n#!!block;n#sendOrderByQuery#0" expanded="false" />
-            <element signature="n#!!block;n#sendProdByQuery#0" expanded="false" />
-            <element signature="n#!!block;n#sendHTML#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -654,22 +641,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="9" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
-          <folding />
+          <folding>
+            <marker date="1522789543207" expanded="true" signature="59:429" placeholder="{...}" />
+            <marker date="1522789543207" expanded="true" signature="75:278" placeholder="[...]" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4">
-          <caret line="150" column="0" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.47145876">
+          <caret line="270" column="6" selection-start-line="270" selection-start-column="6" selection-end-line="270" selection-end-column="6" />
           <folding>
-            <element signature="e#3086#4080#0" expanded="false" />
-            <element signature="e#4164#4362#0" expanded="false" />
-            <element signature="e#4401#4449#0" expanded="false" />
-            <element signature="e#4527#5434#0" expanded="false" />
+            <element signature="e#3213#4207#0" expanded="false" />
+            <element signature="e#4291#4489#0" expanded="false" />
+            <element signature="e#4528#4576#0" expanded="false" />
+            <element signature="e#4654#5561#0" expanded="false" />
             <element signature="n#!!block;n#sendOrderByQuery#0" expanded="false" />
-            <element signature="n#!!block;n#sendProdByQuery#0" expanded="false" />
-            <element signature="n#!!block;n#sendHTML#0" expanded="false" />
           </folding>
         </state>
       </provider>

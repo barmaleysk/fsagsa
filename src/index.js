@@ -68,11 +68,16 @@ bot.on("message", msg => {
 
             case kb.menu.order: // корзина
            // тут нужно отправить выбраные товары пользователю
-                sendOrderByQuery(chatId, {telegramID: chatId})
-                bot.sendMessage(Helper.getChatId(msg), "нямням", {
-                    reply_markup:{
-                        keyboard: keyboard.order
-                    }})
+
+                sendOrderByQuery(chatId, {telegramID: chatId}) .then(_ => {
+
+                })
+                orderGo(chatId, {telegramID: chatId})
+                //console.log(r)
+                //bot.sendMessage(Helper.getChatId(msg), "jhjh", {
+                //    reply_markup:{
+                //        keyboard: keyboard.order
+                //    }})
              break
 
 
@@ -202,6 +207,7 @@ bot.onText(/\/p(.+)/, (msg, [source, match])=>{
 
 function sendOrderByQuery(chatID, query)
 {
+
     const options = {
         parse_mode: 'HTML'
     }
@@ -214,8 +220,8 @@ function sendOrderByQuery(chatID, query)
                      {
                          //console.log(p)
                       //   bot.sendMessage(chatID, JSON.stringify(p.name), { parse_mode: 'HTML'} )
-                         summ = Number(summ)  +  Number(p.out[0])
-                         console.log(summ)
+                      //   summ = Number(summ)  +  Number(p.out[0])
+                      //   console.log(summ)
                          const cal = JSON.stringify({
                              type: ACTION_TYPE.DEL_ORDER,
                              prodId: p.id,
@@ -232,7 +238,9 @@ function sendOrderByQuery(chatID, query)
                          }
 
 
-                         bot.sendMessage(chatID, JSON.stringify(p.name), inlinec )
+                         bot.sendMessage(chatID, JSON.stringify(p.name), inlinec ).then (_=>{
+                             //return summ
+                         })
                      })
 
             })
@@ -244,6 +252,34 @@ function sendOrderByQuery(chatID, query)
 
 }
 
+function orderGo(chatID,query)
+{
+    let summ = 0;
+    Client.find(query) .then(c => {
+
+        c.forEach(cc=> {
+            cc.order.forEach(ccc=> {
+                //sendProdByQuery(chatID,{id:ccc})
+                Product.findOne({id: ccc}).then(p=> {
+                    //console.log(p)
+                    //   bot.sendMessage(chatID, JSON.stringify(p.name), { parse_mode: 'HTML'} )
+                    summ = Number(summ) + Number(p.out[0])
+
+                })
+            })
+        })
+    })
+
+console.log(summ)
+
+
+
+
+    bot.sendMessage(chatID, "Сумма заказа = "+ summ, {
+        reply_markup:{
+            keyboard: keyboard.order
+        }})
+}
 
 
 
