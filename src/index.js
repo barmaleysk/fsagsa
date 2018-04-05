@@ -69,10 +69,10 @@ bot.on("message", msg => {
             case kb.menu.order: // корзина
            // тут нужно отправить выбраные товары пользователю
 
-                sendOrderByQuery(chatId, {telegramID: chatId}) .then(_ => {
+                sendOrderByQuery(chatId, {telegramID: chatId})
 
-                })
-                orderGo(chatId, {telegramID: chatId})
+                setTimeout(orderGo(chatId, {telegramID: chatId}), 5000);
+
                 //console.log(r)
                 //bot.sendMessage(Helper.getChatId(msg), "jhjh", {
                 //    reply_markup:{
@@ -255,6 +255,7 @@ function sendOrderByQuery(chatID, query)
 function orderGo(chatID,query)
 {
     let summ = 0;
+    let i=0;
     Client.find(query) .then(c => {
 
         c.forEach(cc=> {
@@ -264,21 +265,42 @@ function orderGo(chatID,query)
                     //console.log(p)
                     //   bot.sendMessage(chatID, JSON.stringify(p.name), { parse_mode: 'HTML'} )
                     summ = Number(summ) + Number(p.out[0])
+                    console.log(summ)
 
+                    //console.log(cc.order.length)
+                    //console.log(i++)
+                    i++
+                    if( cc.order.length === i) {
+                        bot.sendMessage(chatID, "Сумма заказа = " + summ, {
+                            reply_markup: {
+                                keyboard: keyboard.order
+                            }
+                        })
+                    }
                 })
+
+                //bot.sendMessage(chatID, "Сумма заказа1 = "+ summ, {
+                //    reply_markup:{
+                //        keyboard: keyboard.order
+                //    }})
             })
+
         })
+
     })
 
-console.log(summ)
 
 
 
 
-    bot.sendMessage(chatID, "Сумма заказа = "+ summ, {
-        reply_markup:{
-            keyboard: keyboard.order
-        }})
+
+
+//console.log(summ)
+
+
+
+
+
 }
 
 
