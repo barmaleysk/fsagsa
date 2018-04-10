@@ -172,9 +172,9 @@ bot.onText(/^((073|\+380)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, msg =>{
                 }})
 
         }
-        else{
+        else {
             // нужно записать в бд номер телефона
-            
+            c.update({phone:msg.txt})
             const text = 'Вашь заказ зафиксирован, в ближайшем времени с вами свяжется оператор, '+ msg.from.first_name
             bot.sendMessage(chatID, text, {
                 reply_markup:{
