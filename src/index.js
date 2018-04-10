@@ -71,7 +71,7 @@ bot.on("message", msg => {
 
                 sendOrderByQuery(chatId, {telegramID: chatId})
 
-                setTimeout(orderGo(chatId, {telegramID: chatId}), 5000);
+                setTimeout(orderGo(chatId, {telegramID: chatId}), 15000);
 
                 //console.log(r)
                 //bot.sendMessage(Helper.getChatId(msg), "jhjh", {
@@ -100,11 +100,10 @@ bot.on("message", msg => {
                 }})
             break
 
-        case kb.menu.ordrgo:
+        case kb.order.go:
             /// тут нужно запросить номер у пользователя для связи
-            //OrderOf(chatId, summ)
-
-
+            OrderOf(chatId)
+            //console.log('2')
             break
 
        }
@@ -160,6 +159,44 @@ bot.onText(/\/start/, msg =>{
             keyboard: keyboard.home
         }})
 })
+
+
+bot.onText(/^((073|\+380)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, msg =>{
+    const chatID = Helper.getChatId(msg)
+    Client.findOne({telegramID:chatID}) .then(c =>{
+        if(c.order.isEmpty){
+            console.log("t")
+            bot.sendMessage(chatID, "Для начала нужно сделать заказ", {
+                reply_markup:{
+                    keyboard: keyboard.menu
+                }})
+
+        }
+        else{
+            // нужно записать в бд номер телефона
+            
+            const text = 'Вашь заказ зафиксирован, в ближайшем времени с вами свяжется оператор, '+ msg.from.first_name
+            bot.sendMessage(chatID, text, {
+                reply_markup:{
+                    keyboard: keyboard.orderB
+                }})
+        }
+    })
+
+
+
+})
+
+
+//bot.on("message", msg =>{
+//    if(str.search(new RegExp(msg.text, "^((073|\+380)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$")))
+//    {
+//        console.log("1")
+//    }
+//
+//})
+
+
 
 
 bot.on('polling_error', (error) => {
@@ -260,15 +297,12 @@ function orderGo(chatID,query)
 
         c.forEach(cc=> {
             cc.order.forEach(ccc=> {
-                //sendProdByQuery(chatID,{id:ccc})
+
                 Product.findOne({id: ccc}).then(p=> {
-                    //console.log(p)
-                    //   bot.sendMessage(chatID, JSON.stringify(p.name), { parse_mode: 'HTML'} )
+
                     summ = Number(summ) + Number(p.out[0])
                     console.log(summ)
 
-                    //console.log(cc.order.length)
-                    //console.log(i++)
                     i++
                     if( cc.order.length === i) {
                         bot.sendMessage(chatID, "Сумма заказа = " + summ, {
@@ -279,28 +313,11 @@ function orderGo(chatID,query)
                     }
                 })
 
-                //bot.sendMessage(chatID, "Сумма заказа1 = "+ summ, {
-                //    reply_markup:{
-                //        keyboard: keyboard.order
-                //    }})
             })
 
         })
 
     })
-
-
-
-
-
-
-
-//console.log(summ)
-
-
-
-
-
 }
 
 
@@ -326,9 +343,18 @@ function sendHTML(chatId, html, kbName = null) {
     options['reply_markup'] = {
       keyboard: keyboard[kbName]
     }
+
   }
 
   bot.sendMessage(chatId, html, options)
 }
 
+function OrderOf(chatID)
+{
+    const t = "Для того чтобы оформить заказ нам нужно знать ваш действующий номер телефона"
+    bot.sendMessage(chatID, t) //,{
+    //    reply_markup:{
+    //        keyboard: keyboard.nomm
+    //}} )
 
+}

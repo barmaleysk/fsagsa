@@ -19,7 +19,19 @@ module.exports = {
     order:
     [
         [kb.order.go,  kb.back ]
-    ]
+    ],
+
+    nomm:
+        [
+            [kb.nom.one, kb.nom.two,kb.nom.three],
+            [kb.nom.four, kb.nom.five,kb.nom.six],
+            [kb.nom.seven, kb.nom.eight,kb.nom.nine],
+            [kb.nom.plus, kb.nom.zero]
+        ],
+
+    orderB:[
+            [  kb.back ]
+        ],
   
     
 }
