@@ -81,6 +81,7 @@ bot.on("message", msg => {
              break
 
 
+
         case kb.home.geo:
             bot.sendMessage(Helper.getChatId(msg),"jfdfkjn" , {
                 reply_markup:{
@@ -122,15 +123,93 @@ bot.on('callback_query', query => {
     }
     const {type} = data
     if (type === ACTION_TYPE.ADD_ORDER) {// кннопка "добавить в корзину"
+        ////
+        //        Client.update({telegramID:data.chatId}, {$push: {order: data.prodId}}).then(c =>{
+        //    if(c === undefined)
+        //            {
+        //               Client({telegramID: data.chatId,order: data.prodId}).save()
+        //            }
+        //
+        //})
+        //    .catch(e =>{
+        //        console.log(e)
+        //    })
 
-        Client.update({telegramID:data.chatId}, {$push: {order: data.prodId}}).then(c =>{
-            if(c)
-                    {
-                       Client({telegramID: data.chatId,order: data.prodId}).save()
-                    }
-        })
+       Client.find({telegramID:data.chatId}) .then(c =>{
+           if(c.length === 0){
+               //let cli = new Client({telegramID:data.chatId}).save() .then(sa =>{
+               //
+               //    Client.update({telegramID:data.chatId}, {$push: {order: data.prodId}}) .then(up=>{
+               //            console.log(up)
+               //        }
+               //
+               //    )
+               //    return sa
+               //})
+
+               //.catch(er=>{
+               //        console.log(er)
+               //    })
+            let ord = new Client({telegramID:data.chatId,order: data.prodId})
+            ord.save().catch(e=>{
+                console.log(e)
+            })
+           }
+           else{
+               Client.update({telegramID:data.chatId}, {$push: {order: data.prodId}}).catch(e =>{
+                   console.log(e)
+               })
+           }
+
+
+
+
+
+
+       })
+
+        //Client.find({telegramID:data.chatId}) .then(c=> {
+        //    console.log(c);
+        //    if (c === []) {
+        //        console.log('no element');
+        //        console.log(c);
+        //
+        //    }
+        //    else {
+        //        //Client.update({telegramID: data.chatId})
+        //        console.log('element');
+        //    }
+            //console.log("ttttt")
+            //if (c === undefined) {
+            //    console.log("jhg")
+            //}
+        //
+        //})
+
+       //if( Client.find({telegramID:data.chatId})=== undefined){
+       //    console.log("ttttt")
+       //}
+        //    .then(c =>{
+        //    if (c === undefined){
+        //        console.log("lkjkj")
+        //    }
+        //})
+
+        //Client({telegramID: data.chatId}).save()
+        //Client({telegramID: data.chatId})
+
+
+
+
+
+        // .then(c =>{
+        //    Client.update({telegramID:data.chatId}, {$push: {order: data.prodId}})
+        //})
+
         bot.answerCallbackQuery(query.id, 'add', false)
     }
+
+
 
   if(type === ACTION_TYPE.DEL_ORDER){// кнопка удалить из корзины
 
@@ -161,7 +240,7 @@ bot.onText(/\/start/, msg =>{
 })
 
 
-bot.onText(/^((073|\+380)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, msg =>{
+bot.onText(/((071|\+380)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, msg =>{
     const chatID = Helper.getChatId(msg)
     Client.findOne({telegramID:chatID}) .then(c =>{
         if(c.order.isEmpty){
