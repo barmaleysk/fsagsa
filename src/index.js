@@ -5,15 +5,17 @@ const keyboard = require('./keyboard')
 const kb = require('./keyboard_buttons')
 const mongoose = require('mongoose')
 const prodBD = require('../database.json')
+const pg_start = require('./s')
 
-
-
+pg = "login.html"
+pg_start.start_pg(pg)
 const bot = new TelegramBot(Config.TOKEN, { // создаю подключение к боту
     polling:true
 })
 mongoose.Promise = global.Promise
 require('./models/Product.model')// подключаем модель
 const Product = mongoose.model('products')
+
 
 
 require('./models/Client.model')// подключаем модель
@@ -73,23 +75,18 @@ bot.on("message", msg => {
 
                 setTimeout(orderGo(chatId, {telegramID: chatId}), 15000);
 
-                //console.log(r)
-                //bot.sendMessage(Helper.getChatId(msg), "jhjh", {
-                //    reply_markup:{
-                //        keyboard: keyboard.order
-                //    }})
              break
 
 
 
         case kb.home.geo:
-            bot.sendMessage(Helper.getChatId(msg),"jfdfkjn" , {
+            bot.sendMessage(Helper.getChatId(msg),"https://goo.gl/maps/kTF8inmUqk62 \n тел: 071-30-60-007" , {
                 reply_markup:{
                     keyboard: keyboard.home
                 }})
             break
             case kb.back:
-                bot.sendMessage(Helper.getChatId(msg),"jfdfkjn" , {
+                bot.sendMessage(Helper.getChatId(msg),"Возвращаемся" , {
                     reply_markup:{
                         keyboard: keyboard.home
                     }})
@@ -123,33 +120,8 @@ bot.on('callback_query', query => {
     }
     const {type} = data
     if (type === ACTION_TYPE.ADD_ORDER) {// кннопка "добавить в корзину"
-        ////
-        //        Client.update({telegramID:data.chatId}, {$push: {order: data.prodId}}).then(c =>{
-        //    if(c === undefined)
-        //            {
-        //               Client({telegramID: data.chatId,order: data.prodId}).save()
-        //            }
-        //
-        //})
-        //    .catch(e =>{
-        //        console.log(e)
-        //    })
-
        Client.find({telegramID:data.chatId}) .then(c =>{
            if(c.length === 0){
-               //let cli = new Client({telegramID:data.chatId}).save() .then(sa =>{
-               //
-               //    Client.update({telegramID:data.chatId}, {$push: {order: data.prodId}}) .then(up=>{
-               //            console.log(up)
-               //        }
-               //
-               //    )
-               //    return sa
-               //})
-
-               //.catch(er=>{
-               //        console.log(er)
-               //    })
             let ord = new Client({telegramID:data.chatId,order: data.prodId})
             ord.save().catch(e=>{
                 console.log(e)
@@ -161,51 +133,7 @@ bot.on('callback_query', query => {
                })
            }
 
-
-
-
-
-
        })
-
-        //Client.find({telegramID:data.chatId}) .then(c=> {
-        //    console.log(c);
-        //    if (c === []) {
-        //        console.log('no element');
-        //        console.log(c);
-        //
-        //    }
-        //    else {
-        //        //Client.update({telegramID: data.chatId})
-        //        console.log('element');
-        //    }
-            //console.log("ttttt")
-            //if (c === undefined) {
-            //    console.log("jhg")
-            //}
-        //
-        //})
-
-       //if( Client.find({telegramID:data.chatId})=== undefined){
-       //    console.log("ttttt")
-       //}
-        //    .then(c =>{
-        //    if (c === undefined){
-        //        console.log("lkjkj")
-        //    }
-        //})
-
-        //Client({telegramID: data.chatId}).save()
-        //Client({telegramID: data.chatId})
-
-
-
-
-
-        // .then(c =>{
-        //    Client.update({telegramID:data.chatId}, {$push: {order: data.prodId}})
-        //})
-
         bot.answerCallbackQuery(query.id, 'add', false)
     }
 
@@ -243,8 +171,7 @@ bot.onText(/\/start/, msg =>{
 bot.onText(/((071|\+380)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, msg =>{
     const chatID = Helper.getChatId(msg)
     Client.findOne({telegramID:chatID}) .then(c =>{
-        if(c.order.isEmpty){
-            console.log("t")
+        if(c.order.length === 0){
             bot.sendMessage(chatID, "Для начала нужно сделать заказ", {
                 reply_markup:{
                     keyboard: keyboard.menu
@@ -437,3 +364,23 @@ function OrderOf(chatID)
     //}} )
 
 }
+
+
+//function start_pg()
+//{
+//    const express = require('express')
+//    const app = express()
+//    const port = 3000
+//    app.get('/', (request, response) => {
+//
+//        response.sendFile(__dirname +'/public/index.html');
+//
+//})
+//    app.listen(port, (err) => {
+//        if (err) {
+//            return console.log('something bad happened', err)
+//        }
+//        console.log(`server is listening on ${port}`)
+//    })
+//
+//}
