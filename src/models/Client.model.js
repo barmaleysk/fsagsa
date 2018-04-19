@@ -12,7 +12,13 @@ const ClientSchema = new Schema({
   
   order:{
       type: [String]
-  }
+  },
+    name:{
+        type:String
+    },
+    timedate:{
+        type:Date
+    }
    
 })
 

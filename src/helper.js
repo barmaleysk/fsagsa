@@ -10,6 +10,10 @@ getChatId(msg){
     
      getItemUuid(source) {
     return source.substr(2, source.length)
-  }
+  },
+
+    getNameUser(msg){
+        return msg.from.first_name
+    }
 
 }

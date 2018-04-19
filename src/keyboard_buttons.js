@@ -18,7 +18,8 @@ module.exports =
     back:'Назад',
 
     order:{
-        go:"Оформить"
+        go:"Оформить",
+        reset:'Обновить'
     },
 
     nom:{

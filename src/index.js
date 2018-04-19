@@ -5,10 +5,18 @@ const keyboard = require('./keyboard')
 const kb = require('./keyboard_buttons')
 const mongoose = require('mongoose')
 const prodBD = require('../database.json')
-const pg_start = require('./s')
+//const pg_start = require('./s')
 
-pg = "login.html"
-pg_start.start_pg(pg)
+//pg = "login.html"
+//pg_start.start_pg(pg)
+
+
+// Работа с БД
+mongoose.connect(Config.DB_URL)//подключение к бд
+    .then(()=>console.log('В бд'))// если все найс то выводим на консоль
+    .catch(e => console.log(e))// если нет выводим ошибку
+
+/////////////////////////////////////////////////////////////////////
 const bot = new TelegramBot(Config.TOKEN, { // создаю подключение к боту
     polling:true
 })
@@ -21,21 +29,110 @@ const Product = mongoose.model('products')
 require('./models/Client.model')// подключаем модель
 const Client = mongoose.model('clients')
 
+////////////////////////////////////////////работа с сервером
+//const bodyParser = require('body-parser')
+const nunjucks = require('nunjucks')
+const express = require('express')
+const app = express()
+const port = 3000
+
+
+nunjucks.configure('src/public', {
+    autoescape: true,
+    express: app
+});
+
+
+app.get('/', (request, response) => {
+
+
+    //let clientt = Client.find().then(c =>{
+    //    console.log(c)
+    //    return c
+    //}).catch(e =>{
+    //    consoe.log(e)
+    //})
+    response.sendFile(__dirname + '/public/login.html');
+    //response.render('index.html', {
+    //        persons:{
+    //            phone: JSON.stringify(clientt.phone)
+    //        }
+    //    })
+
+
+
+
+    //console.log(request.query)
+})
+
+let bodyparser = require('body-parser').urlencoded({
+    extended:true
+})
+
+app.post('/index.html', function(req,res){
+    //let clientt = Client.find().then(c =>{
+    //    console.log(c)
+    //    return c
+    //}).catch(e =>{
+    //    consoe.log(e)
+    //})
+
+
+    res.render('index.html', {
+        persons:[{
+            phone:'0986545',
+            order:[1,4,6]
+        },
+            {
+                phone:'0986545',
+                order:[1,4,6]
+            }
+        ]
+                //JSON.stringify(clientt.phone)
+
+    })
+
+})
+
+
+//app.post('./src/public/index.html', bodyparser, function(req,res){
+//
+//    Client.find().then(c => {
+//        res.render('/public/index.html', {
+//            persons:c
+//        })
+//    })
+//
+//
+//
+//    app.get('./src/public/index.html', bodyparser, function(req,res){
+//
+//        Client.find().then(c => {
+//            res.render('/public/index.html', {
+//                persons:c
+//            })
+//        })
+//
+//
+//
+//    })
+
+
+app.listen(port, (err) => {
+    if (err) {
+        return console.log('something bad happened', err)
+    }
+    console.log(`server is listening on ${port}`)
+})
+
+//////////////////////////////////////////////////////////
+
 const ACTION_TYPE = {
     ADD_ORDER: 'aor',
     DEL_ORDER:'dor'
 }
 
 Helper.logStart()// есл все хорошо на консоль сообщение "Я родился"
-
-// Работа с БД
-mongoose.connect(Config.DB_URL)//подключение к бд
-.then(()=>console.log('В бд'))// если все найс то выводим на консоль
-.catch(e => console.log(e))// если нет выводим ошибку
-
-
-
-
 
 //======================================================================== работа с Ботом
 
@@ -68,15 +165,19 @@ bot.on("message", msg => {
             kb.menu.set: sendProdByQuery(chatId, {type_id:4})  // сеты
             break
 
-            case kb.menu.order: // корзина
+            case kb.menu.order : // корзина
            // тут нужно отправить выбраные товары пользователю
 
-                sendOrderByQuery(chatId, {telegramID: chatId})
+                    sendOrderByQuery(chatId, {telegramID: chatId})
 
-                setTimeout(orderGo(chatId, {telegramID: chatId}), 15000);
+                    setTimeout(orderGo(chatId, {telegramID: chatId}), 15000);
 
              break
+             case kb.order.reset:
+                 sendOrderByQuery(chatId, {telegramID: chatId})
 
+                 setTimeout(orderGo(chatId, {telegramID: chatId}), 15000);
+            break
 
 
         case kb.home.geo:
@@ -122,7 +223,7 @@ bot.on('callback_query', query => {
     if (type === ACTION_TYPE.ADD_ORDER) {// кннопка "добавить в корзину"
        Client.find({telegramID:data.chatId}) .then(c =>{
            if(c.length === 0){
-            let ord = new Client({telegramID:data.chatId,order: data.prodId})
+            let ord = new Client({telegramID:data.chatId,order: data.prodId, name:data.name, timedate: new Date()})
             ord.save().catch(e=>{
                 console.log(e)
             })
@@ -170,6 +271,7 @@ bot.onText(/\/start/, msg =>{
 
 bot.onText(/((071|\+380)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, msg =>{
     const chatID = Helper.getChatId(msg)
+
     Client.findOne({telegramID:chatID}) .then(c =>{
         if(c.order.length === 0){
             bot.sendMessage(chatID, "Для начала нужно сделать заказ", {
@@ -180,7 +282,13 @@ bot.onText(/((071|\+380)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, msg =>{
         }
         else {
             // нужно записать в бд номер телефона
-            c.update({phone:msg.txt})
+            console.log(msg.text)
+            Client.update({telegramID:chatID},{phone:msg.text}) .then(c =>{
+                console.log(c)
+            })
+                .catch(e => {
+                console.log(e)
+            })
             const text = 'Вашь заказ зафиксирован, в ближайшем времени с вами свяжется оператор, '+ msg.from.first_name
             bot.sendMessage(chatID, text, {
                 reply_markup:{
@@ -215,6 +323,7 @@ bot.on('polling_error', (error) => {
 bot.onText(/\/p(.+)/, (msg, [source, match])=>{
     const prodID = Helper.getItemUuid(source)
     const chatID = Helper.getChatId(msg)
+    const name_ = Helper.getNameUser(msg)
 
 //Client.findOne({telegramID:msg.from.id})
     Product.findOne({id:prodID}).then(prod => {
@@ -230,7 +339,8 @@ bot.onText(/\/p(.+)/, (msg, [source, match])=>{
                             JSON.stringify( {
                             type: ACTION_TYPE.ADD_ORDER,
                             prodId: prod.id,
-                            chatId: chatID})
+                            chatId: chatID,
+                            name:name_})
 
 
                          }
@@ -248,46 +358,47 @@ bot.onText(/\/p(.+)/, (msg, [source, match])=>{
 
 
 
+
 function sendOrderByQuery(chatID, query)
 {
 
     const options = {
         parse_mode: 'HTML'
     }
+
     Client.find(query) .then(c =>{
+            c.forEach(cc=> {
+                cc.order.forEach(ccc=> {
+                    //sendProdByQuery(chatID,{id:ccc})
+                    Product.findOne({id: ccc}).then(p=> {
+                        //console.log(p)
+                        //   bot.sendMessage(chatID, JSON.stringify(p.name), { parse_mode: 'HTML'} )
+                        //   summ = Number(summ)  +  Number(p.out[0])
+                        //   console.log(summ)
+                        const cal = JSON.stringify({
+                            type: ACTION_TYPE.DEL_ORDER,
+                            prodId: p.id,
+                            chatId: chatID
+                        })
 
-        c.forEach(cc=>{
-            cc.order.forEach(ccc=>{
-                //sendProdByQuery(chatID,{id:ccc})
-                 Product.findOne({id:ccc}).then(p=>
-                     {
-                         //console.log(p)
-                      //   bot.sendMessage(chatID, JSON.stringify(p.name), { parse_mode: 'HTML'} )
-                      //   summ = Number(summ)  +  Number(p.out[0])
-                      //   console.log(summ)
-                         const cal = JSON.stringify({
-                             type: ACTION_TYPE.DEL_ORDER,
-                             prodId: p.id,
-                             chatId: chatID
-                     })
-
-                         const inlinec = {
-                             reply_markup: JSON.stringify({
-                                 inline_keyboard: [
-                                     [{ text: 'Удалить', callback_data:cal} ]
-                                 ]
-                             }),
-                             parse_mode: 'HTML'
-                         }
+                        const inlinec = {
+                            reply_markup: JSON.stringify({
+                                inline_keyboard: [
+                                    [{text: 'Удалить', callback_data: cal}]
+                                ]
+                            }),
+                            parse_mode: 'HTML'
+                        }
 
 
-                         bot.sendMessage(chatID, JSON.stringify(p.name), inlinec ).then (_=>{
-                             //return summ
-                         })
-                     })
+                        bot.sendMessage(chatID, JSON.stringify(p.name), inlinec).then(_=> {
+                            //return summ
+                        })
+                    })
 
+                })
             })
-        })
+
 
     })
 
@@ -306,12 +417,12 @@ function orderGo(chatID,query)
 
                 Product.findOne({id: ccc}).then(p=> {
 
-                    summ = Number(summ) + Number(p.out[0])
+                    summ = Number(summ) + Number(p.price)
                     console.log(summ)
 
                     i++
                     if( cc.order.length === i) {
-                        bot.sendMessage(chatID, "Сумма заказа = " + summ, {
+                        bot.sendMessage(chatID, "Сумма заказа = " + Number(summ)+' рублей', {
                             reply_markup: {
                                 keyboard: keyboard.order
                             }

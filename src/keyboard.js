@@ -18,7 +18,7 @@ module.exports = {
         ],
     order:
     [
-        [kb.order.go,  kb.back ]
+        [kb.order.go, kb.order.reset,  kb.back ]
     ],
 
     nomm:
