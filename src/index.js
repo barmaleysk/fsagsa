@@ -43,54 +43,56 @@ nunjucks.configure('src/public', {
 });
 
 
+
+
+app.get('/index.html', (req, res)=>{
+
+    persLoad(res)
+})
+
+
 app.get('/', (request, response) => {
 
+      response.sendFile(__dirname + '/public/login.html'  );
 
-    //let clientt = Client.find().then(c =>{
-    //    console.log(c)
-    //    return c
-    //}).catch(e =>{
-    //    consoe.log(e)
-    //})
-    response.sendFile(__dirname + '/public/login.html');
-    //response.render('index.html', {
-    //        persons:{
-    //            phone: JSON.stringify(clientt.phone)
-    //        }
-    //    })
-
-
-
-
-    //console.log(request.query)
 })
 
-let bodyparser = require('body-parser').urlencoded({
-    extended:true
-})
+const BodyParser = require('body-parser')
+app.use(BodyParser());
+
+
 
 app.post('/index.html', function(req,res){
-    //let clientt = Client.find().then(c =>{
-    //    console.log(c)
-    //    return c
-    //}).catch(e =>{
-    //    consoe.log(e)
-    //})
+
+        if(req.body.login_ === 'admin'){
+            persLoad(res)
+
+            //res.render('index.html', {
+            //    persons:
+            //    // [{
+            //    //    phone:'0986545',
+            //    //    order:[1,4,6]
+            //    //},
+            //    //    {
+            //    //        phone:'0986545',
+            //    //        order:[1,4,6]
+            //    //    }
+            //    //]
+            //    //JSON.stringify(clientt.phone)
+            //
+            //
+            //
+            //})
+        }
+    //else{
+    //            res.render('login.html', {
+    //
+    //
+    //
+    //            })
+    //    }
 
 
-    res.render('index.html', {
-        persons:[{
-            phone:'0986545',
-            order:[1,4,6]
-        },
-            {
-                phone:'0986545',
-                order:[1,4,6]
-            }
-        ]
-                //JSON.stringify(clientt.phone)
-
-    })
 
 })
 
@@ -233,6 +235,7 @@ bot.on('callback_query', query => {
                    console.log(e)
                })
            }
+
 
        })
         bot.answerCallbackQuery(query.id, 'add', false)
@@ -474,6 +477,20 @@ function OrderOf(chatID)
     //        keyboard: keyboard.nomm
     //}} )
 
+}
+
+function persLoad(ress){
+    Client.find().then(c =>{
+        ress.render('index.html', {
+            persons:c
+        })
+            .catch(er=>{
+                console.log(er + ' er in render')
+            })
+    })
+        .catch(er=>{
+            console.log(er + ' er in find')
+        })
 }
 
 

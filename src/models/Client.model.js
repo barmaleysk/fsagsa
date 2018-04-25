@@ -18,7 +18,11 @@ const ClientSchema = new Schema({
     },
     timedate:{
         type:Date
+    },
+    stutus:{
+        type: Number
     }
+
    
 })
 
