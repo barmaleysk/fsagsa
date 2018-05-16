@@ -1,4 +1,4 @@
-const TelegramBot = require('node-telegram-bot-api')
+﻿const TelegramBot = require('node-telegram-bot-api')
 const Config = require('./config')
 const Helper = require('./helper')
 const keyboard = require('./keyboard')
@@ -120,7 +120,7 @@ app.post('/index.html', function(req,res){
 //    })
 
 
-app.listen(port, (err) => {
+app.listen(process.env.PORT || port, (err) => {
     if (err) {
         return console.log('something bad happened', err)
     }
