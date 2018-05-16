@@ -195,10 +195,11 @@ bot.on("message", msg => {
                     }})
             break
         case  kb.home.mn:
-            bot.sendMessage(Helper.getChatId(msg), "нямням", {
-                reply_markup:{
-                    keyboard: keyboard.menu
-                }})
+            getMenu(chatId)
+            //bot.sendMessage(Helper.getChatId(msg), "нямням", {
+            //    reply_markup:{
+            //        keyboard: keyboard.menu
+            //    }})
             break
 
         case kb.order.go:
@@ -272,6 +273,7 @@ bot.onText(/\/start/, msg =>{
 })
 
 
+
 bot.onText(/((071|\+380)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, msg =>{
     const chatID = Helper.getChatId(msg)
 
@@ -292,7 +294,7 @@ bot.onText(/((071|\+380)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, msg =>{
                 .catch(e => {
                 console.log(e)
             })
-            const text = 'Вашь заказ зафиксирован, в ближайшем времени с вами свяжется оператор, '+ msg.from.first_name
+            const text = 'Ваш заказ зафиксирован, в ближайшем времени с вами свяжется оператор, '+ msg.from.first_name
             bot.sendMessage(chatID, text, {
                 reply_markup:{
                     keyboard: keyboard.orderB
@@ -305,22 +307,9 @@ bot.onText(/((071|\+380)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, msg =>{
 })
 
 
-//bot.on("message", msg =>{
-//    if(str.search(new RegExp(msg.text, "^((073|\+380)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$")))
-//    {
-//        console.log("1")
-//    }
-//
-//})
-
-
-
-
 bot.on('polling_error', (error) => {
     console.log(error.code);  // => 'EFATAL'
 });
-
-
 
 // обрабатываю команду /p
 bot.onText(/\/p(.+)/, (msg, [source, match])=>{
@@ -356,11 +345,6 @@ bot.onText(/\/p(.+)/, (msg, [source, match])=>{
     })
 
 } )
-
-
-
-
-
 
 function sendOrderByQuery(chatID, query)
 {
@@ -440,9 +424,6 @@ function orderGo(chatID,query)
     })
 }
 
-
-
-
 function sendProdByQuery(chatID, query)
 {
     Product.find(query).then(prod =>{
@@ -493,22 +474,11 @@ function persLoad(ress){
         })
 }
 
+function getMenu(chatID)
+{
+    bot.sendMessage(chatID, "нямням", {
+        reply_markup:{
+            keyboard: keyboard.menu
+        }})
+}
 
-//function start_pg()
-//{
-//    const express = require('express')
-//    const app = express()
-//    const port = 3000
-//    app.get('/', (request, response) => {
-//
-//        response.sendFile(__dirname +'/public/index.html');
-//
-//})
-//    app.listen(port, (err) => {
-//        if (err) {
-//            return console.log('something bad happened', err)
-//        }
-//        console.log(`server is listening on ${port}`)
-//    })
-//
-//}
