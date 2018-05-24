@@ -1,131 +1,26 @@
-﻿const TelegramBot = require('node-telegram-bot-api')
+const TelegramBot = require('node-telegram-bot-api')
 const Config = require('./config')
 const Helper = require('./helper')
 const keyboard = require('./keyboard')
 const kb = require('./keyboard_buttons')
-const mongoose = require('mongoose')
-const prodBD = require('../database.json')
-//const pg_start = require('./s')
-
-//pg = "login.html"
-//pg_start.start_pg(pg)
+//const mongoose = require('mongoose')
+//const prodBD = require('../database.json')
+const BD = require('./bd')
+const app = require('./app.js')
 
 
-// Работа с БД
-mongoose.connect(Config.DB_URL)//подключение к бд
-    .then(()=>console.log('В бд'))// если все найс то выводим на консоль
-    .catch(e => console.log(e))// если нет выводим ошибку
+BD.connect
+
 
 /////////////////////////////////////////////////////////////////////
 const bot = new TelegramBot(Config.TOKEN, { // создаю подключение к боту
-    polling:true
-})
-mongoose.Promise = global.Promise
-require('./models/Product.model')// подключаем модель
-const Product = mongoose.model('products')
-
-
-
-require('./models/Client.model')// подключаем модель
-const Client = mongoose.model('clients')
-
-////////////////////////////////////////////работа с сервером
-//const bodyParser = require('body-parser')
-const nunjucks = require('nunjucks')
-const express = require('express')
-const app = express()
-const port = 3000
-
-
-nunjucks.configure('src/public', {
-    autoescape: true,
-    express: app
-});
-
-
-
-
-app.get('/index.html', (req, res)=>{
-
-    persLoad(res)
-})
-
-
-app.get('/', (request, response) => {
-
-      response.sendFile(__dirname + '/public/login.html'  );
-
-})
-
-const BodyParser = require('body-parser')
-app.use(BodyParser());
-
-
-
-app.post('/index.html', function(req,res){
-
-        if(req.body.login_ === 'admin'){
-            persLoad(res)
-
-            //res.render('index.html', {
-            //    persons:
-            //    // [{
-            //    //    phone:'0986545',
-            //    //    order:[1,4,6]
-            //    //},
-            //    //    {
-            //    //        phone:'0986545',
-            //    //        order:[1,4,6]
-            //    //    }
-            //    //]
-            //    //JSON.stringify(clientt.phone)
-            //
-            //
-            //
-            //})
-        }
-    //else{
-    //            res.render('login.html', {
-    //
-    //
-    //
-    //            })
-    //    }
-
-
-
-})
-
-
-//app.post('./src/public/index.html', bodyparser, function(req,res){
-//
-//    Client.find().then(c => {
-//        res.render('/public/index.html', {
-//            persons:c
-//        })
-//    })
-//
-//
-//
-//    app.get('./src/public/index.html', bodyparser, function(req,res){
-//
-//        Client.find().then(c => {
-//            res.render('/public/index.html', {
-//                persons:c
-//            })
-//        })
-//
-//
-//
-//    })
-
-
-app.listen(process.env.PORT || port, (err) => {
-    if (err) {
-        return console.log('something bad happened', err)
+//    polling:true
+    webHook: {
+        port: Config.Port
     }
-    console.log(`server is listening on ${port}`)
 })
+bot.setWebHook(`${Config.URL_ngrok}/bot ${Config.TOKEN} `)
+
 
 //////////////////////////////////////////////////////////
 
@@ -171,16 +66,16 @@ bot.on("message", msg => {
            // тут нужно отправить выбраные товары пользователю
 
                     sendOrderByQuery(chatId, {telegramID: chatId})
-
-                    setTimeout(orderGo(chatId, {telegramID: chatId}), 15000);
+                    orderGo(chatId, {telegramID: chatId})
 
              break
+///////////////////////////////////////////////////////////////////       
              case kb.order.reset:
-                 sendOrderByQuery(chatId, {telegramID: chatId})
-
-                 setTimeout(orderGo(chatId, {telegramID: chatId}), 15000);
+//                 sendOrderByQuery(chatId, {telegramID: chatId})
+//                 orderGo(chatId, {telegramID: chatId})
+             getOrderAndGetSum(chatId)
             break
-
+//////////////////////////////////////////////////////////////////////
 
         case kb.home.geo:
             bot.sendMessage(Helper.getChatId(msg),"https://goo.gl/maps/kTF8inmUqk62 \n тел: 071-30-60-007" , {
@@ -214,7 +109,7 @@ bot.on("message", msg => {
        })
 
 // обрабатываю инлайн клавиатуру
-bot.on('callback_query', query => {
+ bot.on('callback_query', query => {
     let data
     try {
         data = JSON.parse(query.data)
@@ -224,15 +119,15 @@ bot.on('callback_query', query => {
     }
     const {type} = data
     if (type === ACTION_TYPE.ADD_ORDER) {// кннопка "добавить в корзину"
-       Client.find({telegramID:data.chatId}) .then(c =>{
+       BD.Client.find({telegramID:data.chatId}) .then(c =>{
            if(c.length === 0){
-            let ord = new Client({telegramID:data.chatId,order: data.prodId, name:data.name, timedate: new Date()})
+            let ord = new BD.Client({telegramID:data.chatId,order: data.prodId, name:data.name, timedate: new Date()})
             ord.save().catch(e=>{
                 console.log(e)
             })
            }
            else{
-               Client.update({telegramID:data.chatId}, {$push: {order: data.prodId}}).catch(e =>{
+               BD.Client.update({telegramID:data.chatId}, {$push: {order: data.prodId}}).catch(e =>{
                    console.log(e)
                })
            }
@@ -249,18 +144,25 @@ bot.on('callback_query', query => {
       //console.log(data.prodId)
 
       //Client.findOne({telegramID:data.chatId, order: data.prodId }) .then(c =>{
-      Client.findOneAndUpdate({telegramID:data.chatId},{$pull:{order:data.prodId}}) .then(c =>{
-
+      BD.Client.findOneAndUpdate({telegramID:data.chatId},{$pull:{order:data.prodId}}) .then(c =>{
+          
+          
           //console.log(c)
       })
       .catch(e => {
               console.log(e)
           })
             bot.answerCallbackQuery(query.id, 'del', false)
-          }
+            bot.sendMessage(data.chatId, 'Товар удален, текущее состояние корзины:')
+            
+            getOrderAndGetSum(data.chatId)
+//            sendOrderByQuery(data.chatId, {telegramID: data.chatId}) /// вооот
+//            orderGo(data.chatId, {telegramID: data.chatId})
+  
 
-    })
-
+          
+    }
+})
 
 
 // обрабатываю команду start, отвечаю приветствием
@@ -277,7 +179,7 @@ bot.onText(/\/start/, msg =>{
 bot.onText(/((071|\+380)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, msg =>{
     const chatID = Helper.getChatId(msg)
 
-    Client.findOne({telegramID:chatID}) .then(c =>{
+    BD.Client.findOne({telegramID:chatID}) .then(c =>{
         if(c.order.length === 0){
             bot.sendMessage(chatID, "Для начала нужно сделать заказ", {
                 reply_markup:{
@@ -288,7 +190,7 @@ bot.onText(/((071|\+380)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, msg =>{
         else {
             // нужно записать в бд номер телефона
             console.log(msg.text)
-            Client.update({telegramID:chatID},{phone:msg.text}) .then(c =>{
+            BD.Client.update({telegramID:chatID},{phone:msg.text}) .then(c =>{
                 console.log(c)
             })
                 .catch(e => {
@@ -316,9 +218,10 @@ bot.onText(/\/p(.+)/, (msg, [source, match])=>{
     const prodID = Helper.getItemUuid(source)
     const chatID = Helper.getChatId(msg)
     const name_ = Helper.getNameUser(msg)
+    console.log(msg)
 
 //Client.findOne({telegramID:msg.from.id})
-    Product.findOne({id:prodID}).then(prod => {
+    BD.Product.findOne({id:prodID}).then(prod => {
         const caption = `${prod.name}\nЦена: ${prod.price} руб.\nВыход: ${prod.out[0]} г \\ ${prod.out[1]} шт.\nСостав: ${prod.ingrid}  `
          bot.sendPhoto(chatID, prod.img, {
              caption: caption,
@@ -332,7 +235,8 @@ bot.onText(/\/p(.+)/, (msg, [source, match])=>{
                             type: ACTION_TYPE.ADD_ORDER,
                             prodId: prod.id,
                             chatId: chatID,
-                            name:name_})
+                            name:name_,
+                            msgID: msg.messae_id  })
 
 
                          }
@@ -353,11 +257,11 @@ function sendOrderByQuery(chatID, query)
         parse_mode: 'HTML'
     }
 
-    Client.find(query) .then(c =>{
+    BD.Client.find(query) .then(c =>{
             c.forEach(cc=> {
                 cc.order.forEach(ccc=> {
                     //sendProdByQuery(chatID,{id:ccc})
-                    Product.findOne({id: ccc}).then(p=> {
+                    BD.Product.findOne({id: ccc}).then(p=> {
                         //console.log(p)
                         //   bot.sendMessage(chatID, JSON.stringify(p.name), { parse_mode: 'HTML'} )
                         //   summ = Number(summ)  +  Number(p.out[0])
@@ -397,12 +301,12 @@ function orderGo(chatID,query)
 {
     let summ = 0;
     let i=0;
-    Client.find(query) .then(c => {
+    BD.Client.find(query) .then(c => {
 
         c.forEach(cc=> {
             cc.order.forEach(ccc=> {
 
-                Product.findOne({id: ccc}).then(p=> {
+                BD.Product.findOne({id: ccc}).then(p=> {
 
                     summ = Number(summ) + Number(p.price)
                     console.log(summ)
@@ -422,11 +326,12 @@ function orderGo(chatID,query)
         })
 
     })
+    
 }
 
 function sendProdByQuery(chatID, query)
 {
-    Product.find(query).then(prod =>{
+    BD.Product.find(query).then(prod =>{
       const html = prod.map((f,i)=> {
           return ` ${f.name} - /p${f.id}`
       }).join('\n')
@@ -460,19 +365,17 @@ function OrderOf(chatID)
 
 }
 
-function persLoad(ress){
-    Client.find().then(c =>{
-        ress.render('index.html', {
-            persons:c
-        })
-            .catch(er=>{
-                console.log(er + ' er in render')
-            })
-    })
-        .catch(er=>{
-            console.log(er + ' er in find')
-        })
+
+async function getOrderAndGetSum(d)
+{
+    const one = await sendOrderByQuery(d, {telegramID: d})
+    
+    setTimeout(orderGo(d, {telegramID: d}), 10000)    
+    
+      /// вооот
+            
 }
+
 
 function getMenu(chatID)
 {

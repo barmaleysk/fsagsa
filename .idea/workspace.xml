@@ -70,11 +70,11 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33932135">
-              <caret line="296" column="29" selection-start-line="296" selection-start-column="29" selection-end-line="296" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="297" column="29" selection-start-line="297" selection-start-column="29" selection-end-line="297" selection-end-column="29" />
               <folding>
                 <element signature="e#1530#2193#0" expanded="false" />
-                <element signature="e#2665#2797#0" expanded="false" />
+                <element signature="e#2685#2817#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -220,6 +220,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -273,7 +274,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -427,7 +427,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#1530#2193#0" expanded="false" />
-            <element signature="e#2665#2797#0" expanded="false" />
+            <element signature="e#2685#2817#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -468,7 +468,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#1530#2193#0" expanded="false" />
-            <element signature="e#2665#2797#0" expanded="false" />
+            <element signature="e#2685#2817#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -502,7 +502,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#1530#2193#0" expanded="false" />
-            <element signature="e#2665#2797#0" expanded="false" />
+            <element signature="e#2685#2817#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -536,7 +536,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#1530#2193#0" expanded="false" />
-            <element signature="e#2665#2797#0" expanded="false" />
+            <element signature="e#2685#2817#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -569,7 +569,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#1530#2193#0" expanded="false" />
-            <element signature="e#2665#2797#0" expanded="false" />
+            <element signature="e#2685#2817#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -602,7 +602,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#1530#2193#0" expanded="false" />
-            <element signature="e#2665#2797#0" expanded="false" />
+            <element signature="e#2685#2817#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -635,7 +635,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#1530#2193#0" expanded="false" />
-            <element signature="e#2665#2797#0" expanded="false" />
+            <element signature="e#2685#2817#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -668,7 +668,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#1530#2193#0" expanded="false" />
-            <element signature="e#2665#2797#0" expanded="false" />
+            <element signature="e#2685#2817#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -701,7 +701,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#1530#2193#0" expanded="false" />
-            <element signature="e#2665#2797#0" expanded="false" />
+            <element signature="e#2685#2817#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -734,7 +734,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#1530#2193#0" expanded="false" />
-            <element signature="e#2665#2797#0" expanded="false" />
+            <element signature="e#2685#2817#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -840,11 +840,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33932135">
-          <caret line="296" column="29" selection-start-line="296" selection-start-column="29" selection-end-line="296" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="297" column="29" selection-start-line="297" selection-start-column="29" selection-end-line="297" selection-end-column="29" />
           <folding>
             <element signature="e#1530#2193#0" expanded="false" />
-            <element signature="e#2665#2797#0" expanded="false" />
+            <element signature="e#2685#2817#0" expanded="false" />
           </folding>
         </state>
       </provider>
