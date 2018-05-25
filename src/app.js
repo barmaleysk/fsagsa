@@ -1,8 +1,12 @@
 const Exspress = require('express')
-const app = Exspress()
+ const app = Exspress()
 const nunjucks = require('nunjucks')
 const BodyParser = require('body-parser')
 const Config = require('./config')
+const BD = require('./bd')
+
+
+
 app.use(BodyParser());
 
 
@@ -46,11 +50,11 @@ function persLoad(ress){
         ress.render('index.html', {
             persons:c
         })
-            .catch(er=>{
-                console.log(er + ' er in render')
-            })
+//            .catch(er=>{
+//                console.log(er + ' er in render')
+//            })
     })
-        .catch(er=>{
-            console.log(er + ' er in find')
-        })
+//        .catch(er=>{
+//            console.log(er + ' er in find')
+//        })
 }
