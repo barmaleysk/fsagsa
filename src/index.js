@@ -19,7 +19,7 @@ const bot = new TelegramBot(Config.TOKEN, { // создаю подключени
         port: Config.Port
     }
 })
-bot.setWebHook(`${Config.URL_ngrok}/bot ${Config.TOKEN} `)
+bot.setWebHook(`${Config.URL_ngrok} ${Config.TOKEN} `)
 
 
 //////////////////////////////////////////////////////////
@@ -237,7 +237,6 @@ bot.onText(/\/p(.+)/, (msg, [source, match])=>{
                             chatId: chatID,
                             name:name_,
                             msgID: msg.messae_id  })
-
 
                          }
                      ]
