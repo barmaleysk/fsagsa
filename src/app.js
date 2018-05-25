@@ -7,7 +7,7 @@ const BD = require('./bd')
 
 
 
-app.use(BodyParser());
+app.use(BodyParser.urlencoded({ extended: false }));
 
 
 nunjucks.configure('src/public', {
