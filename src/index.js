@@ -14,12 +14,12 @@ BD.connect
 
 /////////////////////////////////////////////////////////////////////
 const bot = new TelegramBot(Config.TOKEN, { // создаю подключение к боту
-    polling:true
-//    webHook: {
-//        port: Config.URL_ngrok
-//    }
+//    polling:true
+    webHook: {
+        port: Config.Port
+    }
 })
-//bot.setWebHook(`${Config.URL_ngrok}/bot${Config.TOKEN} `)
+bot.setWebHook(`${Config.URL_ngrok}/bot${Config.TOKEN} `)
 
 
 //////////////////////////////////////////////////////////
