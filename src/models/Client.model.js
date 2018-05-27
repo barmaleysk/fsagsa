@@ -16,14 +16,16 @@ const ClientSchema = new Schema({
     name:{
         type:String
     },
-    timedate:{
-        type:Date
-    },
+    
     stutus:{
         type: Number
-    }
-
+    },
    
-})
+},
+                                 
+     {
+    timestamps: true
+  }
+)
 
 mongoose.model('clients', ClientSchema)

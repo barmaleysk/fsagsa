@@ -31,7 +31,16 @@ app.post('/index.html', function(req,res){
 
 
 
+    
 })
+
+
+app.get('/index.html', (req, res) => {
+
+      persLoad(res)
+
+})
+
 
 
 
@@ -44,9 +53,32 @@ app.listen(Config.Port, (err) => {
 
 
 
+//app.post(`/bot${Config.TOKEN}`, (req, res) => {
+//  bot.processUpdate(req.body);
+//  res.sendStatus(200);
+//});
+
+
+
 
 function persLoad(ress){
     BD.Client.find().then(c =>{
+        
+//        const {name, order, phone, stutus} = c
+        ///const obj = JSON.parse(c)
+         //const {name, order, phone, stutus} = obj
+         c.forEach(cc=>{
+                console.log(cc)
+                
+                const {order, id, name, updatedAt,  phone  } = cc
+                
+                console.log(phone)
+                
+         })
+    
+      
+        
+        
         ress.render('index.html', {
             persons:c
         })
