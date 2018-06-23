@@ -4,6 +4,7 @@ const nunjucks = require('nunjucks')
 const BodyParser = require('body-parser')
 const Config = require('./config')
 const BD = require('./bd')
+const helper = require ('./helper')
 
 
 
@@ -61,32 +62,86 @@ app.listen(Config.Port, (err) => {
 
 
 
-function persLoad(ress){
-    BD.Client.find().then(c =>{
-        
-//        const {name, order, phone, stutus} = c
-        ///const obj = JSON.parse(c)
-         //const {name, order, phone, stutus} = obj
-         c.forEach(cc=>{
-                console.log(cc)
+async function persLoad(ress){
+    var mas = []
+    var obj = {}
+    const f = await BD.Client.find()// выбираю всех клиентов
+  f.forEach(c => {// смотрю конкретного клиента
+  // console.log(c.name) 
+        const {order} = c // разбиваю объект информации о клиенте 
+    //console.log(order)  , id, name, updatedAt,  phone   
+        order.forEach(i =>{// смотрю заказ клиента нужно добавить проверку на пустоту
+            BD.Product.find({id:i})
+                  .then(cc => {
+//        console.log(cc)
+                        cc.forEach( u =>{
+                            // а тут нужно всетаки товары ложить в массив 
+                          mas.push(u.name)
+                         
+                      })
+                    //  console.log(mas)
+                     console.log(mas)
+                     obj = {
+                         name: с.name,
+                         order: mas,
+                         phone:с.phone,
+                         stutus:"выполнение"
                 
-                const {order, id, name, updatedAt,  phone  } = cc
-                
-                console.log(phone)
-                
-         })
-    
-      
-        
-        
-        ress.render('index.html', {
-            persons:c
+                     }
+                     // вот на этом этапе нужно отправлять данные на вьюшку
+                     ress.render('index.html', {
+                         persons:obj
+                     })
+            })
         })
-//            .catch(er=>{
-//                console.log(er + ' er in render')
-//            })
     })
-//        .catch(er=>{
-//            console.log(er + ' er in find')
-//        })
+
+ //console.log('kykysya')
+  
+//console.log(f)
+
+//BD.Client.find().then(c =>{
+//
+//         c.forEach(cc=>{
+//            //    console.log(cc)
+//                
+//                const {order, id, name, updatedAt,  phone  } = cc
+//                order.forEach(i =>{
+////                     console.log(i)
+//                    BD.Product.find({id:i}).then(item =>{
+//                        
+//                            item.forEach(r =>{
+//                             
+//                                mas.push(r.name)
+////                                console.log(mas)
+//                                      
+//                            })
+////                         console.log(item)
+//                            
+//                          
+//                    })
+//                  
+//                })
+//                
+//             
+//                 
+//     
+//                
+//         })
+//           ress.render('index.html', {
+//             persons:c
+////                                persons:{
+////                                name :name,
+////                                order : mas,
+////                                phone: phone,
+////                                stutus: 'true'
+////                                        }
+//                                                            })
+////  })
+       
+       
+       
+//          
+//    })
+//       
 }

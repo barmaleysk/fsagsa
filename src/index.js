@@ -21,9 +21,9 @@ const bot = new TelegramBot(Config.TOKEN, { // создаю подключени
 })
 //bot.setWebHook(`${Config.URL_ngrok}/bot${Config.TOKEN}`)
 
-bot.getWebHookInfo() .then(i =>{
-    console.log(i)
-})
+//bot.getWebHookInfo() .then(i =>{
+//    console.log(i)
+//})
 
 //////////////////////////////////////////////////////////
 
