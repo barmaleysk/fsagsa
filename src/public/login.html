@@ -3,41 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+        
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script >
+      function myFunc(){
+        let data = {
+          login : $('#exampleInput').val(),
+          password: $('#exampleInputPassword1').val()
+        }
+        fetch('/login.html', {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+              "Content-Type": "application/json"
+            },
+            credentials: "same-origin"
+            })  .then((res)=> {
+                  alert("Я вернулся с сервера")
+                  console.log(res)
+                }) 
+                .catch((err)=> {
+                  console.log(err) //=> String
+                })
+      };
+
+    </script>
     <title>LogIN</title>
+    
+
+
+
 </head>
 <body>
 <div class="container">
-    <div class="row justify-content-center " style="margin-top: 150px;">
-
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-auto">
+             <p id="err"> {{err}}</p>
+        </div>
+    </div>
+    <div class="row justify-content-center ">
         <div class="col-md-4">
-            <form action="index.html" method="post"  >
+            <form id="ajax_form"  method="put">
                 <div class="form-group">
                     <label for="exampleInput">Логин</label>
-                    <input name="login_" type="text" class="form-control" id="exampleInput"  placeholder="Введите логин">
+                    <input  type="text" class="form-control" id="exampleInput"  placeholder="Введите логин">
                     <small id="emailHelp" class="form-text text-muted"></small>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Пароль</label>
-                    <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Пароль">
+                    <input  type="password" class="form-control" id="exampleInputPassword1" placeholder="Пароль">
                 </div>
 
                 <div class="row justify-content-center">
                     <div class="col-md-auto">
-                        <button type="submit" class="btn btn-primary">Войти</button>
+                        <button id="enter" onclick = 'myFunc()' class="btn btn-primary ">Войти</button>
                     </div>
                 </div>
 
             </form>
-
-            <div class="alert alert alert-danger" role="alert" style="margin-top: 10px">
-                lkgjk
-            </div>
-
-
 
         </div>
 
     </div>
 </div>
 </body>
+ 
+  
+ 
+
+<!-- 
+ <script type="text/javascript">
+
+      $('#enter').click(function(){  
+
+     $.ajax({ 
+           url: '/login.html',
+           type: 'POST',
+           cache: false, 
+           data: { field1: 'djhfghkj', field2: 'oijfhid' }, 
+           success: function(data){
+              alert('Success!')
+           }
+           , error: function(jqXHR, textStatus, err){
+               document.getElementById("err").innerHTML = "Логин или пароль не совпадают"
+           }
+        })
+     });            
+
+</script> -->
+
+
 </html>
